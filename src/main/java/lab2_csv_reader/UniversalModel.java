@@ -27,6 +27,7 @@ public class UniversalModel extends AbstractTableModel {
                 .map(Method::getName)
                 .filter(t -> t.startsWith("get"))
                 .forEach(t -> this.methods.add(t));
+                
     }
 
     public int getRowCount() {
