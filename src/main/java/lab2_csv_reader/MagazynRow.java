@@ -10,9 +10,9 @@ import java.sql.Date;
 @Getter
 @Setter
 @ToString
-public class MagazynRow implements Serializable {
+public class MagazynRow implements Serializable{
     private Integer nrMag;
-    private String nrKarty;
+    private CardNumber nrKarty;
     private Integer nrOdpadu;
     private Integer nrKlienta;
     private Integer firma;
