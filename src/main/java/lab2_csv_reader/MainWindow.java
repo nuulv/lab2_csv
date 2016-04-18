@@ -5,6 +5,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
@@ -74,7 +75,7 @@ public class MainWindow implements ActionListener {
 
     private void initTable() {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table1.getTableHeader().setReorderingAllowed(false);
+        //table1.getTableHeader().setReorderingAllowed(false);
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -140,7 +141,7 @@ public class MainWindow implements ActionListener {
                     Date date = format.parse(record[7]);
                     MagazynRow item = new MagazynRow(
                             NumberUtils.toInt(record[0].replaceAll("\\D+", "")),
-                            record[1],
+                            new CardNumber(record[1]),
                             NumberUtils.toInt(record[2].replaceAll("\\D+", "")),
                             NumberUtils.toInt(record[3].replaceAll("\\D+", "")),
                             NumberUtils.toInt(record[4].replaceAll("\\D+", "")),
@@ -155,7 +156,7 @@ public class MainWindow implements ActionListener {
                 table1.setModel(tblModel);
 
                 TableRowSorter<UniversalModel> sorter = new TableRowSorter<>(tblModel);
-                sorter.setComparator(1, new CardNumberComparator());
+//                sorter.setComparator(1, new CardNumberComparator());
                 table1.setRowSorter(sorter);
                 textField1.setEnabled(true);
 
