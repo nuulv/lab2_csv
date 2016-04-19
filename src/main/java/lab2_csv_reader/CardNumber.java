@@ -1,20 +1,24 @@
 package lab2_csv_reader;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class CardNumber implements Comparable<CardNumber>{
     private Integer[] n = new Integer[3];
+    private String cardNumber;
 
 
     public CardNumber(String cardNumber){
+        this.cardNumber = cardNumber;
+
         if (cardNumber != null){
             Scanner scanner = new Scanner(cardNumber);
             scanner.useDelimiter("/");
-            for (int i = 0; i < 3; i++ ){
-                if (scanner.hasNextInt()) {
-                    n[i] = scanner.nextInt();
-                }
+            int i = 0;
+            while (scanner.hasNext()){
+                n[i++] = NumberUtils.toInt(scanner.next(), 0);
             }
         }
     }
@@ -43,6 +47,6 @@ public class CardNumber implements Comparable<CardNumber>{
 
     @Override
     public String toString() {
-        return "n=" + Arrays.toString(n);
+        return Arrays.toString(n).replace(", ", "/").replaceAll("[\\[\\]]", "");
     }
 }
