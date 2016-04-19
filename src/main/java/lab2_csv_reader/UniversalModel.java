@@ -13,7 +13,7 @@ public class UniversalModel extends AbstractTableModel {
     private List<?> rows;
     private List<String> methods = new ArrayList<>();
 
-    public UniversalModel(List<?> rows, String[] columnNames) {
+    public UniversalModel(List<?> rows, String[] columnNames) throws Exception {
         this.rows = rows;
         this.columnNames = columnNames;
 
@@ -34,6 +34,10 @@ public class UniversalModel extends AbstractTableModel {
         if (c.isAnnotationPresent(Order.class)){
             Order orderAnnotation = c.getAnnotation(Order.class);
             int[] order = orderAnnotation.value();
+
+            if (order.length > this.methods.size()){
+                throw new Exception("lol");
+            }
 
             List<String> mth = methods.stream()
                     .map(Method::getName)
