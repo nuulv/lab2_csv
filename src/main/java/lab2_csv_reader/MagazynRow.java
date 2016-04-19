@@ -10,6 +10,8 @@ import java.sql.Date;
 @Getter
 @Setter
 @ToString
+@Order({0,1,2,3,4,5,6,7}) // default order
+//@Order({7,6,5,4,3,2,1,0}) // reverse
 public class MagazynRow implements Serializable{
     private Integer nrMag;
     private CardNumber nrKarty;
