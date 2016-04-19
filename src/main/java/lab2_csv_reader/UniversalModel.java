@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class UniversalModel extends AbstractTableModel {
     private String[] columnNames;
@@ -21,13 +23,29 @@ public class UniversalModel extends AbstractTableModel {
 //        Stream<String> methodsStream = methods.stream()
 //                .map( t->t.getName())
 //                .filter( t->t.startsWith("get"));
-//        Object[] order = Stream.iterate(0, n->n+1).limit(methodsStream.count()).toArray();
+//        Object[] order = Stream.iterate(1, n->n+1).limit(methodsStream.count()).toArray();
 
-        methods.stream()
+        this.methods = methods.stream()
                 .map(Method::getName)
                 .filter(t -> t.startsWith("get"))
-                .forEach(t -> this.methods.add(t));
-                
+                .collect(Collectors.toList());
+
+
+        if (c.isAnnotationPresent(Order.class)){
+            Order orderAnnotation = c.getAnnotation(Order.class);
+            int[] order = orderAnnotation.value();
+
+            List<String> mth = methods.stream()
+                    .map(Method::getName)
+                    .filter(t->t.startsWith("get"))
+                    .collect(Collectors.toList());
+
+            for (String m : mth) {
+                this.methods.set(order[mth.indexOf(m)], m);
+            }
+        }
+
+        System.out.println(this.methods);
     }
 
     public int getRowCount() {
